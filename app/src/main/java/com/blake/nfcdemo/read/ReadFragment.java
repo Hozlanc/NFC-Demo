@@ -2,15 +2,18 @@ package com.blake.nfcdemo.read;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.blake.nfcdemo.R;
 import com.blake.nfcdemo.base.BaseFragment;
+import com.blake.nfcdemo.nfc.NFCDataListener;
 
-public class ReadFragment extends BaseFragment {
+import butterknife.BindView;
+
+public class ReadFragment extends BaseFragment implements NFCDataListener {
+
+    @BindView(R.id.tv_tip)
+    TextView tvTip;
 
     @Override
     protected int setLayoutResourceId() {
@@ -27,4 +30,18 @@ public class ReadFragment extends BaseFragment {
 
     }
 
+    @Override
+    public void NFCParseFail() {
+        tvTip.setText("解析磁卡数据失败");
+    }
+
+    @Override
+    public void getNFCTag(String tag) {
+
+    }
+
+    @Override
+    public void getNFCText(String text) {
+        tvTip.setText("磁卡数据：" + text);
+    }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.blake.nfcdemo.R;
 import com.blake.nfcdemo.base.BaseFragment;
+import com.blake.nfcdemo.nfc.NFCDataListener;
 
 public class WriteFragment extends BaseFragment {
 

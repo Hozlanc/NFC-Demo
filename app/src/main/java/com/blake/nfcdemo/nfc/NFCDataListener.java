@@ -1,4 +1,4 @@
-package com.blake.nfcdemo.base.nfc;
+package com.blake.nfcdemo.nfc;
 
 /**
  * Create by Pidan
@@ -14,7 +14,7 @@ public interface NFCDataListener {
      *
      * @param tag 返回的工卡的16进制码
      */
-    void getNFCTAG(String tag);
+    void getNFCTag(String tag);
 
     /**
      * 获取卡的文本消息

@@ -1,4 +1,4 @@
-package com.blake.nfcdemo.base.nfc;
+package com.blake.nfcdemo.nfc;
 
 /**
  * Create by Pidan

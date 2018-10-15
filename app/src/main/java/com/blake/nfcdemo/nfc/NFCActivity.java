@@ -1,4 +1,4 @@
-package com.blake.nfcdemo.base.nfc;
+package com.blake.nfcdemo.nfc;
 
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -18,7 +18,7 @@ import com.blake.nfcdemo.base.BaseActivity;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
-public abstract class NFCActivity extends BaseActivity {
+public abstract class NFCActivity extends BaseActivity implements NFCStateListener, NFCDataListener {
 
     // NFC适配器
     private NfcAdapter nfcAdapter = null;
@@ -68,39 +68,39 @@ public abstract class NFCActivity extends BaseActivity {
         checkNFC = true;
     }
 
-    /**
-     * NFC开关开启状态处理
-     */
-    protected abstract void NFCEnabled();
-
-    /**
-     * NFC开关关闭状态处理
-     */
-    protected abstract void NFCDisabled();
-
-    /**
-     * 不支持NFC  回调方法
-     */
-    protected abstract void NFCNonsupport();
-
-    /**
-     * 不支持的NFC数据类型  回调方法
-     */
-    protected abstract void NFCParseFail();
-
-    /**
-     * 获取卡的信息
-     *
-     * @param tag 返回的工卡的16进制码
-     */
-    public abstract void getNFCTAG(String tag);
-
-    /**
-     * 获取卡的文本消息
-     *
-     * @param text NFC卡存储的文本消息
-     */
-    public abstract void getNFCText(String text);
+//    /**
+//     * NFC开关开启状态处理
+//     */
+//    protected abstract void NFCEnabled();
+//
+//    /**
+//     * NFC开关关闭状态处理
+//     */
+//    protected abstract void NFCDisabled();
+//
+//    /**
+//     * 不支持NFC  回调方法
+//     */
+//    protected abstract void NFCNonsupport();
+//
+//    /**
+//     * 不支持的NFC数据类型  回调方法
+//     */
+//    protected abstract void NFCParseFail();
+//
+//    /**
+//     * 获取卡的信息
+//     *
+//     * @param tag 返回的工卡的16进制码
+//     */
+//    public abstract void getNFCTag(String tag);
+//
+//    /**
+//     * 获取卡的文本消息
+//     *
+//     * @param text NFC卡存储的文本消息
+//     */
+//    public abstract void getNFCText(String text);
 
     @Override
     protected void onPause() {
@@ -126,7 +126,7 @@ public abstract class NFCActivity extends BaseActivity {
 
         tagFromIntent = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
         String tag = bytesToHexString(tagFromIntent.getId());
-        getNFCTAG(tag);
+        getNFCTag(tag);
         try {
             getNFCText(readNFCText(intent));
         } catch (UnsupportedEncodingException e) {

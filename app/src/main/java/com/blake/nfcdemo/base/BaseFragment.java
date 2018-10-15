@@ -10,12 +10,17 @@ import android.widget.Toast;
 
 import com.blake.nfcdemo.R;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * Create by Pidan
  */
 public abstract class BaseFragment extends Fragment implements BaseView {
-    protected View mRootView;
+
+    protected View rootView;
     private AlertDialog loadingDialog;
+    Unbinder unbinder;
 
     /**
      * 设置根布局资源id
@@ -26,14 +31,15 @@ public abstract class BaseFragment extends Fragment implements BaseView {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(setLayoutResourceId(), container, false);
+        rootView = inflater.inflate(setLayoutResourceId(), container, false);
+        unbinder = ButterKnife.bind(this, rootView);
         loadingDialog = new AlertDialog.Builder(getActivity()).setView(R.layout.dialog_loading).setCancelable(false).create();
 //        init();
         initData(getArguments());
         initView();
         initListener();
 
-        return mRootView;
+        return rootView;
     }
 
 //    protected abstract void init();
@@ -60,6 +66,12 @@ public abstract class BaseFragment extends Fragment implements BaseView {
         Toast.makeText(getContext(), msg + "", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
     /**
      * 不需要强转的findViewById
      *
@@ -69,9 +81,9 @@ public abstract class BaseFragment extends Fragment implements BaseView {
      */
     /*@SuppressWarnings("unchecked")
     protected <T extends View> T findViewById(int id) {
-        if (mRootView == null) {
+        if (rootView == null) {
             return null;
         }
-        return (T) mRootView.findViewById(id);
+        return (T) rootView.findViewById(id);
     }*/
 }
