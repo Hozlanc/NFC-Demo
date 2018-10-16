@@ -1,5 +1,7 @@
 package com.blake.nfcdemo.main;
 
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -9,6 +11,8 @@ import android.widget.FrameLayout;
 
 import com.blake.nfcdemo.R;
 import com.blake.nfcdemo.nfc.NFCActivity;
+import com.blake.nfcdemo.nfc.NFCFragment;
+import com.blake.nfcdemo.nfc.NFCUtils;
 import com.blake.nfcdemo.read.ReadFragment;
 import com.blake.nfcdemo.view.CheckDialog;
 import com.blake.nfcdemo.write.WriteFragment;
@@ -29,9 +33,9 @@ public class MainActivity extends NFCActivity implements MainContract.View {
     NavigationView nav;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
-    private int currentPage = READ_FRAGMENT;
-    private ReadFragment readFragment;
-    private WriteFragment writeFragment;
+    private NFCFragment currentPage;
+    private NFCFragment readFragment;
+    private NFCFragment writeFragment;
 
     @Override
     protected int initLayoutView() {
@@ -70,13 +74,18 @@ public class MainActivity extends NFCActivity implements MainContract.View {
     }
 
     @Override
+    protected void onNFCDetect(Intent intent) {
+        currentPage.onNfcDetect(intent);
+    }
+
+    @Override
     public void NFCEnabled() {
         CheckDialog.dismiss();
     }
 
     @Override
     public void NFCDisabled() {
-        CheckDialog.createDialog(this, "设置", "您还未开启NFC功能，请先开启NFC开关。", "前往开启", () -> gotoNFCSetting());
+        CheckDialog.createDialog(this, "设置", "您还未开启NFC功能，请先开启NFC开关。", "前往开启", () -> NFCUtils.toNfcSetting(this));
     }
 
     @Override
@@ -84,38 +93,18 @@ public class MainActivity extends NFCActivity implements MainContract.View {
         CheckDialog.createDialog(this, "设置", "很抱歉，您的设备不支持NFC功能。", "我知道了", null);
     }
 
-    @Override
-    public void NFCParseFail() {
-        if (currentPage == READ_FRAGMENT) {
-            readFragment.NFCParseFail();
-        }
-    }
-
-    @Override
-    public void getNFCTag(String tag) {
-        if (currentPage == READ_FRAGMENT) {
-            readFragment.getNFCTag(tag);
-        }
-    }
-
-    @Override
-    public void getNFCText(String text) {
-        if (currentPage == READ_FRAGMENT) {
-            readFragment.getNFCText(text);
-        }
-    }
 
     @Override
     public void toRead() {
         setTitle("读卡");
-        currentPage = 0;
+        currentPage = readFragment;
         replace(R.id.fl_content, readFragment);
     }
 
     @Override
     public void toWrite() {
         setTitle("写卡");
-        currentPage = 1;
+        currentPage = writeFragment;
         replace(R.id.fl_content, writeFragment);
     }
 }
