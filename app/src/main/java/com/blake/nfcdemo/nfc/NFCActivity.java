@@ -15,6 +15,7 @@ import android.nfc.tech.NfcV;
 import android.os.Parcelable;
 
 import com.blake.nfcdemo.base.BaseActivity;
+import com.blake.nfcdemo.view.CheckDialog;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
@@ -133,5 +134,20 @@ public abstract class NFCActivity extends BaseActivity implements NFCStateListen
     protected void disableListener() {
         disable = true;
         stopNFC_Listener();
+    }
+
+    @Override
+    public void NFCEnabled() {
+        CheckDialog.dismiss();
+    }
+
+    @Override
+    public void NFCDisabled() {
+        CheckDialog.createDialog(this, "设置", "您还未开启NFC功能，请先开启NFC开关。", "前往开启", () -> NFCUtils.toNfcSetting(this));
+    }
+
+    @Override
+    public void NFCNonsupport() {
+        CheckDialog.createDialog(this, "设置", "很抱歉，您的设备不支持NFC功能。", "我知道了", null);
     }
 }

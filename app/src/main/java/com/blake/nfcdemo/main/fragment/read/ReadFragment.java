@@ -1,4 +1,4 @@
-package com.blake.nfcdemo.read;
+package com.blake.nfcdemo.main.fragment.read;
 
 
 import android.content.Intent;
@@ -7,8 +7,6 @@ import android.widget.TextView;
 
 import com.blake.nfcdemo.NfcCard;
 import com.blake.nfcdemo.R;
-import com.blake.nfcdemo.base.BaseFragment;
-import com.blake.nfcdemo.nfc.NFCDataListener;
 import com.blake.nfcdemo.nfc.NFCFragment;
 
 import butterknife.BindView;

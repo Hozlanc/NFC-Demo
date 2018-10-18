@@ -1,4 +1,4 @@
-package com.blake.nfcdemo.read;
+package com.blake.nfcdemo.main.fragment.read;
 
 import android.content.Intent;
 

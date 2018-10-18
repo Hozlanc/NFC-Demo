@@ -48,7 +48,20 @@
             <!-- <category android:name="android.intent.category.DEFAULT" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".write.app.WriteAppActivity"></activity>
+        <activity android:name=".write.app.WriteAppActivity" />
+        <activity android:name=".write.uri.WriteUriActivity" />
+        <activity android:name=".write.text.WriteTextActivity" />
+        <activity
+            android:name=".write.WriteActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

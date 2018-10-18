@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="32dp"
+    android:paddingBottom="32dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <com.blake.nfcdemo.view.TitleUnderImage
+            android:id="@+id/ti_app"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:image="@drawable/icon_app"
+            app:title="写入应用" />
+
+        <com.blake.nfcdemo.view.TitleUnderImage
+            android:id="@+id/ti_url"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:image="@drawable/icon_url"
+            app:title="写入链接" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <com.blake.nfcdemo.view.TitleUnderImage
+            android:id="@+id/ti_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:image="@drawable/icon_text"
+            app:title="写入文本" />
+
+        <com.blake.nfcdemo.view.TitleUnderImage
+            android:id="@+id/ti_clear"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:image="@drawable/icon_clear"
+            app:title="清空数据" />
+    </LinearLayout>
+</LinearLayout>

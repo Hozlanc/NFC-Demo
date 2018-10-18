@@ -1,7 +1,6 @@
 package com.blake.nfcdemo.main;
 
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Color;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -10,21 +9,19 @@ import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
 
 import com.blake.nfcdemo.R;
+import com.blake.nfcdemo.base.BaseFragment;
+import com.blake.nfcdemo.main.fragment.WriteModeFragment;
 import com.blake.nfcdemo.nfc.NFCActivity;
 import com.blake.nfcdemo.nfc.NFCFragment;
-import com.blake.nfcdemo.nfc.NFCUtils;
-import com.blake.nfcdemo.read.ReadFragment;
-import com.blake.nfcdemo.view.CheckDialog;
-import com.blake.nfcdemo.write.WriteFragment;
+import com.blake.nfcdemo.main.fragment.read.ReadFragment;
 
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 
 public class MainActivity extends NFCActivity implements MainContract.View {
-    public static final int READ_FRAGMENT = 0;
-    public static final int WRITE_FRAGMENT = 1;
-
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.fl_content)
@@ -35,7 +32,8 @@ public class MainActivity extends NFCActivity implements MainContract.View {
     DrawerLayout drawerLayout;
     private NFCFragment currentPage;
     private NFCFragment readFragment;
-    private NFCFragment writeFragment;
+    private BaseFragment writeFragment;
+    private boolean isReadyExit;
 
     @Override
     protected int initLayoutView() {
@@ -45,7 +43,7 @@ public class MainActivity extends NFCActivity implements MainContract.View {
     @Override
     protected void initData() {
         readFragment = new ReadFragment();
-        writeFragment = new WriteFragment();
+        writeFragment = new WriteModeFragment();
     }
 
     @Override
@@ -75,36 +73,39 @@ public class MainActivity extends NFCActivity implements MainContract.View {
 
     @Override
     protected void onNFCDetect(Intent intent) {
-        currentPage.onNfcDetect(intent);
+        if (currentPage != null) {
+            currentPage.onNfcDetect(intent);
+        }
     }
-
-    @Override
-    public void NFCEnabled() {
-        CheckDialog.dismiss();
-    }
-
-    @Override
-    public void NFCDisabled() {
-        CheckDialog.createDialog(this, "设置", "您还未开启NFC功能，请先开启NFC开关。", "前往开启", () -> NFCUtils.toNfcSetting(this));
-    }
-
-    @Override
-    public void NFCNonsupport() {
-        CheckDialog.createDialog(this, "设置", "很抱歉，您的设备不支持NFC功能。", "我知道了", null);
-    }
-
 
     @Override
     public void toRead() {
-        setTitle("读卡");
         currentPage = readFragment;
+        setTitle("读卡");
         replace(R.id.fl_content, readFragment);
     }
 
     @Override
     public void toWrite() {
+        currentPage = null;
         setTitle("写卡");
-        currentPage = writeFragment;
         replace(R.id.fl_content, writeFragment);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!isReadyExit) {
+            toast("再按一次退出程序");
+            isReadyExit = true;
+            new Timer().schedule(new TimerTask() {
+                //延时两秒，如果超出则擦错第一次按键记录
+                @Override
+                public void run() {
+                    isReadyExit = false;
+                }
+            }, 2000);
+        } else {
+            System.exit(0);
+        }
     }
 }
