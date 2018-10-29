@@ -1,4 +1,4 @@
-package com.blake.nfcdemo.nfc;
+package com.blake.nfcdemo.utils;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,12 +10,14 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.logging.Logger;
 
 /**
  * Create by Pidan
@@ -44,9 +46,37 @@ public class NFCUtils {
         return stringBuilder.toString();
     }
 
+//    public static String getNdefText(Intent intent) throws UnsupportedEncodingException {
+//        Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+//        NdefMessage msgs[] = null;
+//        if (rawMsgs != null) {
+//            msgs = new NdefMessage[rawMsgs.length];
+//            for (int i = 0; i < rawMsgs.length; i++) {
+//                msgs[i] = (NdefMessage) rawMsgs[i];
+//                NdefRecord[] records = msgs[i].getRecords();
+//                for (int j = 0; j < records.length; j++) {
+//                    String s = new String(records[j].getId());
+//                    String s1 = new String(records[j].getPayload());
+//                    String s2 = new String(records[j].getType());
+//                    String type = records[j].toMimeType();
+//                    Uri uri = records[j].toUri();
+//                    String uriStr = null;
+//                    if (uri == null) {
+//                        uriStr = "";
+//                    } else {
+//                        uriStr = uri.toString();
+//                    }
+//                    short tnf = records[j].getTnf();
+//
+//                    System.out.println("type:" + type + "\npayload:" + s1 + "\nuri:" + uriStr + "\ntnf:" + tnf);
+//                }
+//            }
+//        }
+//        return "";
+//    }
+
     public static String getNdefText(Intent intent) throws UnsupportedEncodingException {
-        Parcelable[] rawMsgs = intent.getParcelableArrayExtra(
-                NfcAdapter.EXTRA_NDEF_MESSAGES);
+        Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
         NdefMessage msgs[] = null;
         int contentSize = 0;
         if (rawMsgs != null) {

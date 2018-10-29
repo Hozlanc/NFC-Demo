@@ -3,7 +3,7 @@ package com.blake.nfcdemo.main.fragment.read;
 import android.content.Intent;
 
 import com.blake.nfcdemo.NfcCard;
-import com.blake.nfcdemo.nfc.NFCUtils;
+import com.blake.nfcdemo.utils.NFCUtils;
 
 import java.io.UnsupportedEncodingException;
 
@@ -17,14 +17,15 @@ public class ReadPresenter implements ReadContract.Presenter {
         this.view = view;
     }
 
-    public void parseCard(Intent intent) {
+    @Override
+    public NfcCard parseCard(Intent intent) {
         NfcCard card = new NfcCard();
         try {
-            String ndefText = NFCUtils.getNdefText(intent);
-            card.setNdefStr(ndefText);
-            view.onNfcParsed(card);
+            card.setId(NFCUtils.getTagId(intent));
+            card.setText(NFCUtils.getNdefText(intent));
+            return card;
         } catch (UnsupportedEncodingException e) {
-            view.NFCParseFail();
+            return null;
         }
     }
 }

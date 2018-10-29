@@ -5,7 +5,9 @@ package com.blake.nfcdemo;
  */
 public class NfcCard {
     private String id;
-    private String ndefStr;
+    private String packagee;
+    private String url;
+    private String text;
 
     public String getId() {
         return id;
@@ -15,11 +17,27 @@ public class NfcCard {
         this.id = id;
     }
 
-    public String getNdefStr() {
-        return ndefStr;
+    public String getPackagee() {
+        return packagee;
     }
 
-    public void setNdefStr(String ndefStr) {
-        this.ndefStr = ndefStr;
+    public void setPackagee(String packagee) {
+        this.packagee = packagee;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }

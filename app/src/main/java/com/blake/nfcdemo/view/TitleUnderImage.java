@@ -28,7 +28,7 @@ public class TitleUnderImage extends LinearLayout {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.TitleUnderImage, 0, 0);
         try {
             res = ta.getResourceId(R.styleable.TitleUnderImage_image, 0);
-            title = ta.getString(R.styleable.TitleUnderImage_title);
+            title = ta.getString(R.styleable.TitleUnderImage_bottom_title);
             setUpView();
         } finally {
             ta.recycle();

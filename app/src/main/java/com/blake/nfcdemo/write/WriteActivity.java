@@ -3,18 +3,16 @@ package com.blake.nfcdemo.write;
 import android.content.Intent;
 import android.nfc.FormatException;
 import android.nfc.NdefRecord;
-import android.os.Bundle;
 import android.widget.TextView;
 
 import com.blake.nfcdemo.Keys;
 import com.blake.nfcdemo.R;
 import com.blake.nfcdemo.nfc.NFCActivity;
-import com.blake.nfcdemo.nfc.NFCUtils;
+import com.blake.nfcdemo.utils.NFCUtils;
 
 import java.io.IOException;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class WriteActivity extends NFCActivity implements Keys.WriteKey {

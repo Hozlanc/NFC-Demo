@@ -3,24 +3,16 @@ package com.blake.nfcdemo.nfc;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.Uri;
-import android.nfc.NdefMessage;
-import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.IsoDep;
 import android.nfc.tech.NfcA;
 import android.nfc.tech.NfcF;
 import android.nfc.tech.NfcV;
-import android.os.Parcelable;
 
 import com.blake.nfcdemo.base.BaseActivity;
+import com.blake.nfcdemo.utils.NFCUtils;
 import com.blake.nfcdemo.view.CheckDialog;
-
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
-import java.util.Arrays;
-import java.util.Locale;
 
 public abstract class NFCActivity extends BaseActivity implements NFCStateListener {
 

@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:image="@drawable/icon_app"
-            app:title="写入应用" />
+            app:bottom_title="写入应用" />
 
         <com.blake.nfcdemo.view.TitleUnderImage
             android:id="@+id/ti_url"
@@ -27,7 +27,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:image="@drawable/icon_url"
-            app:title="写入链接" />
+            app:bottom_title="写入链接" />
     </LinearLayout>
 
     <LinearLayout
@@ -42,7 +42,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:image="@drawable/icon_text"
-            app:title="写入文本" />
+            app:bottom_title="写入文本" />
 
         <com.blake.nfcdemo.view.TitleUnderImage
             android:id="@+id/ti_clear"
@@ -50,6 +50,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:image="@drawable/icon_clear"
-            app:title="清空数据" />
+            app:bottom_title="清空数据" />
     </LinearLayout>
 </LinearLayout>
